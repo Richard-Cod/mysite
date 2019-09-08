@@ -1,0 +1,10 @@
+
+
+{% if post.published_date %}
+	<div>
+		<p>Published : {{post.published_date}}</p>
+		<h2><a href="">{{post.title}}</a></h2>
+		<p>{{post.text}}</p>
+	</div>
+
+{% endif %}

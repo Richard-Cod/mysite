@@ -11,7 +11,7 @@
 {% for i in posts%}
 	<div>
 		<p>Published : {{i.published_date}}</p>
-		<h2><a href="">{{i.title}}</a></h2>
+		<h2><a href="{% url 'post_detail' i.id%}">{{i.title}}</a></h2>
 		<p>{{i.text}}</p>
 	</div>
 
