@@ -1,11 +1,17 @@
 
 {% extends "base.html" %}
 {% block content%}
-<h1>PARTIE BLOG DE L'APPLICATION </h1>
+<h1>PARTIE BLOG DE L'APPLICATION <i class="fas fa-sync fa-spin"></i></h1>
 
 {% if post.published_date %}
 	<div class="container ">
 			<p>Published : {{post.author}}</p>
+			<button class="btn btn-light"><i class="fas fa-dove fa-xs fa-spin"></i></button>
+			dede<i class="fab fa-algolia"></i>
+			
+
+			<a style="text-decoration: none;font-size: 2em" href="{% url 'post_edit' post.id %}"><i class="fas fa-pencil-alt fa-spin"></i></a>
+
 			<p>Published : {{post.published_date}}</p>
 			<h2><a href="">{{post.title}}</a></h2>
 			<p>{{post.text}}</p>
