@@ -20,7 +20,6 @@ def post_new(request):
 		if form.is_valid():
 			post = form.save(commit=False)
 			post.author = request.user
-			post.published_date = timezone.now()
 			post.save()
 			return redirect('post_detail',id=post.id)
 	else:
@@ -40,3 +39,15 @@ def post_edit(request,id):
 	else:
 		form = PostForm(instance=post)
 	return render(request,'blog/post_edit.html',{'form':form})
+
+def draft_list_view(request):
+	posts= Post.objects.filter(published_date=None).order_by('-created_date')
+	return render(request,'blog/posts_draft.html',{'posts':posts})
+
+def draft_list_publish(request,id):
+	post = Post.objects.get(id=id)
+	print(post)
+	post.published_date = timezone.now()
+	post.save()
+	
+	return redirect('post_list')

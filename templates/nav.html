@@ -38,8 +38,9 @@
       
     </ul>
     {% if user.is_authenticated %}
-    <div class="ml-auto">   
-      <a style="font-size: 2em" class="nav-link" href="{% url 'post_edit' 2 %}">Bonjour {{user}}<i class="fab fa-algolia fa-spin"></i></a>
+    <div style="justify-content: center;" class="ml-auto d-flex ">   
+      <a style="font-size: 2em" class="nav-link" href="{% url 'post_draft' %}">Draft list <i class="fab fa-firstdraft"></i></a>
+      <a style="font-size: 2em" class="nav-link" href="#">Bonjour {{user}}<i class="fab fa-algolia fa-spin"></i></a>
     
       </div>
       {% endif %}
