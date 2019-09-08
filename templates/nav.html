@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Navbar</a>
+  <a class="navbar-brand" href="#">CP</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -28,6 +28,20 @@
           <a class="dropdown-item" href="#">Something else here</a>
         </div>
       </li>
+
+
+      {% if user.is_authenticated %}
+       <li class="nav-item">
+        <a class="nav-link" href="{% url 'post_new' %}">+</a>
+      </li>
+      {% endif %}
+      
     </ul>
+    {% if user.is_authenticated %}
+    <div class="ml-auto">   
+      <a style="font-size: 2em" class="nav-link" href="{% url 'post_edit' 2 %}">Bonjour {{user}}<i class="fab fa-algolia fa-spin"></i></a>
+    
+      </div>
+      {% endif %}
   </div>
 </nav>
