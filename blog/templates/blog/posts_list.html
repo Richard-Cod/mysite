@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Richard Clever Programmer</title>
+</head>
+<body>
+	<h1><a href="">CP BLOG</a></h1>
+	
+
+{% for i in posts%}
+	<div>
+		<p>Published : {{i.published_date}}</p>
+		<h2><a href="">{{i.title}}</a></h2>
+		<p>{{i.text}}</p>
+	</div>
+
+{% endfor %%}
+
+
+	
+</body>
+</html>
