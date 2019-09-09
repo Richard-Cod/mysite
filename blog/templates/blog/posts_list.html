@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+	{% block content%}
+	<h1>PARTIE BLOG DE L'APPLICATION <i class="fas fa-sync fa-spin"></i> </h1>
+		<div class="container content">
+			
+			
+			{% for i in posts%}
+			
+						<p>Published : {{i.published_date}}</p>
+						<h2><a href="{% url 'post_detail' i.id%}">{{i.title}}</a></h2>
+						<p>{{i.text}}</p>
+			
+
+			{% endfor %%}
+		
+			
+		</div>
+
+{% endblock%}

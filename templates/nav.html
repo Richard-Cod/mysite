@@ -1,0 +1,53 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">CP</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'post_list' %}">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'post_list' %}">Liste de Postes</a>
+      </li>
+       <li class="nav-item">
+        <a class="nav-link" href="{% url 'post_new' %}">New Poste</a>
+      </li>
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'post_edit' 2 %}">Poste edit</a>
+      </li>
+     
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Ayi
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="#">loko</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li>
+
+
+      {% if user.is_authenticated %}
+       <li class="nav-item">
+        <a class="nav-link" href="{% url 'post_new' %}">+</a>
+      </li>
+      {% endif %}
+      
+    </ul>
+    <div style="justify-content: center;" class="ml-auto d-flex "> 
+    {% if user.is_authenticated %}
+      
+
+      <a style="font-size: 2em" class="nav-link" href="{% url 'post_draft' %}">Draft list <i class="fab fa-firstdraft"></i></a>
+      <a style="font-size: 2em" class="nav-link" href="#">Bonjour {{user}}<i class="fab fa-algolia fa-spin"></i></a>
+      <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+      
+    {% else %}
+        <a class="nav-link" href="{% url 'login' %}">Login</a>
+      {% endif %}
+  </div> 
+  </div>
+</nav>
