@@ -16,6 +16,21 @@
 			<p>Published : {{post.published_date}}</p>
 			<h2><a href="">{{post.title}}</a></h2>
 			<p>{{post.text}}</p>
+
+			
+			 <a type="button" href="{% url 'comment_to_post' post.id %}" class="btn btn-secondary">Leave a comment</a>
+			
+			<h1>Commentaires</h1>
+			{% for i in post.comments.all %}
+
+			<p>date :  {{i.created_date }} </p> <strong>Auteur :  {{i.author}}</strong>
+			<p> {{i.text}} </p>
+			<hr>
+
+			{% empty %}
+			<p>No comments yet ....</p>
+
+			{% endfor %}
 		
 	</div>
 
