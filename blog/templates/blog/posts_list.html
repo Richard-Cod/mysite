@@ -6,11 +6,16 @@
 			
 			
 			{% for i in posts%}
+				
 			
 						<p>Published : {{i.published_date}}</p>
 						<h2><a href="{% url 'post_detail' i.id%}">{{i.title}}</a></h2>
 						<p>{{i.text}}</p>
 			
+
+
+				{% empty%}
+				<p>Aucun Post pour le moment </p>
 
 			{% endfor %%}
 		

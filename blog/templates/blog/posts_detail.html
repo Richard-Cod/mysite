@@ -3,7 +3,8 @@
 {% block content%}
 <h1>PARTIE BLOG DE L'APPLICATION <i class="fas fa-sync fa-spin"></i></h1>
 
-{% if post.published_date %}
+{% if post.published_date %}  
+
 	<div class="container ">
 			<p>Published : {{post.author}}</p>
 			
@@ -13,9 +14,59 @@
 			<a style="text-decoration: none;font-size: 2em" href="{% url 'post_edit' post.id %}"><i class="fas fa-pencil-alt fa-spin"></i></a>
 		{% endif %}
 
+	
+
 			<p>Published : {{post.published_date}}</p>
 			<h2><a href="">{{post.title}}</a></h2>
 			<p>{{post.text}}</p>
+
+			
+			 <a type="button" href="{% url 'comment_to_post' post.id %}" class="btn btn-secondary">Leave a comment</a>
+			
+			<h1>Commentaires</h1>
+
+			{% for i in post.comments.all %}
+
+
+			{% if user.is_superuser and not i.approved %}
+				<a type="button" class="btn btn-light" href="{% url 'approve_comment' i.id  %}">Approve comment {{i.id}} </a>
+				<a type="button" class="btn btn-danger" href="{% url 'remove_comment' i.id %}">Remove comment {{i.id}} </a>
+				<p>date :  {{i.created_date }} </p> <strong>Auteur :  {{i.author}}</strong>
+								<p> {{i.text}} </p>
+								
+			{% endif %}
+
+			
+
+				{% if i.approved %}
+								<p>date :  {{i.created_date }} </p> <strong>Auteur :  {{i.author}}</strong>
+								<p> {{i.text}} </p>
+								
+				{% endif %}
+
+
+
+			{% if user.is_superuser %}
+	<p>		<a type="button" class="btn btn-danger" href="{% url 'remove_comment' i.id %}">Delete {{i.id}} </a> </p>
+	<hr>
+			 {% endif %}
+			
+			
+			{% empty %}
+			<p>No comments yet ....</p>
+
+{% endfor %}
+
+
+
+
+
+
+
+
+
+
+
 		
 	</div>
 
@@ -26,3 +77,8 @@
 {% endif %}
 
 {% endblock%}
+
+
+
+
+
