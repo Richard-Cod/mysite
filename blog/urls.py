@@ -13,6 +13,8 @@ urlpatterns = [
     path('post/comment/<int:id>',views.comment_to_post,name='comment_to_post'),
     path('post/comment/remove/<int:id>',views.remove_comment,name='remove_comment'),
     path('post/comment/approve/<int:id>',views.approve_comment,name='approve_comment'),
+
+    path('signup',views.signup,name='signup'),
     
 
 ]
