@@ -1,8 +1,11 @@
 from django.shortcuts import render , get_object_or_404 ,redirect
 from django.utils import timezone
 
+from django.contrib.auth.models import User
+from django.contrib.auth import login
+
 from .models import Post,Comment
-from .forms import PostForm ,CommentForm
+from .forms import PostForm ,CommentForm ,UserForm
 
 from django.contrib.auth.decorators import login_required
 
@@ -90,3 +93,18 @@ def approve_comment(request,id):
 	poste_id= comment.post.id
 	comment.approve()
 	return redirect('post_detail',id=poste_id)
+
+
+
+def signup(request):
+	if request.method == 'POST':
+		form = UserForm(request.POST)
+		if form.is_valid():
+			new_user = User.objects.create_user(**form.cleaned_data)
+			login(request,new_user)
+			return redirect('post_list')
+	else:
+		form = UserForm()
+	return render(request,'registration/signup.html',{'form':form})
+
+	
