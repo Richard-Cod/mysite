@@ -11,6 +11,13 @@ class Post(models.Model):
 	created_date = models.DateTimeField(default=timezone.now)
 	published_date = models.DateTimeField(blank=True,null=True)
 
+	@property
+	def get_approved_comments(self):
+		return self.comments.filter(approved=True)
+	@property
+	def get_unapproved_comments(self):
+		return self.comments.filter(approved=False)
+
 	def publish(self):
 		self.published_date = timezone.now()
 		self.save()

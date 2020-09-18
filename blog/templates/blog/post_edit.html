@@ -1,13 +1,16 @@
 
 {% extends "base.html" %}
 {% block content%}
-<h1>PARTIE BLOG DE L'APPLICATION </h1>
-<h2>New Post</h2>
+
+ {% include '_blog_header.html' %}
+
+
+<h2>Nouveau poste</h2>
 
 <form method="POST" action="">
 	{% csrf_token %}
 	{{ form.as_p }}
-	<button type="submit">Save</button>
+	<button type="submit">Poster</button>
 </form>
 
 

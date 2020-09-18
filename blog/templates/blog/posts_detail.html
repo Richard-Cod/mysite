@@ -150,7 +150,6 @@
   </header>
 
 
-<h1>PARTIE BLOG DE L'APPLICATION <i class="fas fa-sync fa-spin"></i></h1>
 
 {% if post.published_date %}  
 
@@ -174,7 +173,9 @@
 <section class="content-item" id="comments">
     <div class="container">         
     	<div class="row">
-            <div class="col-sm-8">   
+            <div class="col-sm-8"> 
+            <!-- 
+  
                 <form>
                 	<h3 class="pull-left">Nouveau commentaire</h3>
                     <fieldset>
@@ -190,11 +191,12 @@
                 	<button type="submit" class="btn btn-warning float-right">Soumettre</button>
 
                 </form>
+                 -->
                 
-                <h3>{{post.comments.all.count }} Commentaires </h3>
+                <h3>{{post.get_approved_comments.count }} Commentaire{{ post.get_approved_comments.count|pluralize }} </h3>
                 
 
-			{% for i in post.comments.all %}
+			{% for i in post.get_approved_comments %}
 
                 <!-- COMMENT 1 - START -->
                 <div class="media">
@@ -202,6 +204,8 @@
                     <div class="media-body">
                         <h4 class="media-heading">{{i.author}}</h4>
                         <p>{{i.text}}</p>
+
+                        <p>Commentaire approuvé ? {{i.approved}} </p>
 
 
                         <ul style="display: flex;padding: 5px" class="list-unstyled list-inline media-detail pull-left">
@@ -221,6 +225,46 @@
                 <!-- COMMENT 1 - END -->
 
              {% endfor %}
+
+
+             {% if user.is_superuser %}
+             <p>Vous êtes Admin alors voici les commentaires qui ne sont pas encore approuvé </p>
+
+             {% for i in post.get_unapproved_comments %}
+
+                <!-- COMMENT 1 - START -->
+                <div class="media">
+                    <a class="pull-left" href="#"><img class="media-object" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""></a>
+                    <div class="media-body">
+                        <h4 class="media-heading">{{i.author}}</h4>
+                        <p>{{i.text}}</p>
+
+                        <a class=" btn-warning" href="{% url 'approve_comment' i.id %}">Approuver ce commentaire</a>
+                        <a class=" btn-danger" href="{% url 'remove_comment' i.id %}">Supprimer ce commentaire</a>
+
+
+                        <ul style="display: flex;padding: 5px" class="list-unstyled list-inline media-detail pull-left">
+                            <li><i class="fa fa-calendar"></i>{{i.created_date}}</li>
+                            <!-- <li><i class="fa fa-thumbs-up"></i>13</li> -->
+                        </ul>
+
+                <!-- 
+
+                        <ul style="display: flex;padding: 5px" class="list-unstyled list-inline media-detail pull-right">
+                            <li class=""><a href="">Like</a></li>
+                            <li class=""><a href="">Répondre</a></li>
+                        </ul>
+                 -->
+                    </div>
+                </div>
+                <!-- COMMENT 1 - END -->
+
+                {% empty %}
+                <h1>Aucun commentaire non approuvé</h1>
+
+             {% endfor %}
+
+             {% endif %}
                 
             
             </div>
