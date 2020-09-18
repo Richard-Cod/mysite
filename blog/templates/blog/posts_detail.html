@@ -1,70 +1,232 @@
 
 {% extends "base.html" %}
 {% block content%}
+
+<style type="text/css">
+	
+
+.content-item {
+    padding:30px 0;
+	background-color:#FFFFFF;
+}
+
+.content-item.grey {
+	background-color:#F0F0F0;
+	padding:50px 0;
+	height:100%;
+}
+
+.content-item h2 {
+	font-weight:700;
+	font-size:35px;
+	line-height:45px;
+	text-transform:uppercase;
+	margin:20px 0;
+}
+
+.content-item h3 {
+	font-weight:400;
+	font-size:20px;
+	color:#555555;
+	margin:10px 0 15px;
+	padding:0;
+}
+
+.content-headline {
+	height:1px;
+	text-align:center;
+	margin:20px 0 70px;
+}
+
+.content-headline h2 {
+	background-color:#FFFFFF;
+	display:inline-block;
+	margin:-20px auto 0;
+	padding:0 20px;
+}
+
+.grey .content-headline h2 {
+	background-color:#F0F0F0;
+}
+
+.content-headline h3 {
+	font-size:14px;
+	color:#AAAAAA;
+	display:block;
+}
+
+
+#comments {
+    box-shadow: 0 -1px 6px 1px rgba(0,0,0,0.1);
+	background-color:#FFFFFF;
+}
+
+#comments form {
+	margin-bottom:30px;
+}
+
+#comments .btn {
+	margin-top:7px;
+}
+
+#comments form fieldset {
+	clear:both;
+}
+
+#comments form textarea {
+	height:100px;
+}
+
+#comments .media {
+	border-top:1px dashed #DDDDDD;
+	padding:20px 0;
+	margin:0;
+}
+
+#comments .media > .pull-left {
+    margin-right:20px;
+}
+
+#comments .media img {
+	max-width:100px;
+}
+
+#comments .media h4 {
+	margin:0 0 10px;
+}
+
+#comments .media h4 span {
+	font-size:14px;
+	float:right;
+	color:#999999;
+}
+
+#comments .media p {
+	margin-bottom:15px;
+	text-align:justify;
+}
+
+#comments .media-detail {
+	margin:0;
+}
+
+#comments .media-detail li {
+	color:#AAAAAA;
+	font-size:12px;
+	padding-right: 10px;
+	font-weight:600;
+}
+
+#comments .media-detail a:hover {
+	text-decoration:underline;
+}
+
+#comments .media-detail li:last-child {
+	padding-right:0;
+}
+
+#comments .media-detail li i {
+	color:#666666;
+	font-size:15px;
+	margin-right:10px;
+}
+
+</style>
+<header class="masthead" style="background-image: url('img/post-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>{{post.title}}</h1>
+            <h2 class="subheading">..........</h2>
+            <span class="meta">Posté par
+              <a href="#">{{post.author.username}}</a>
+              le {{post.published_date}} </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
 <h1>PARTIE BLOG DE L'APPLICATION <i class="fas fa-sync fa-spin"></i></h1>
 
 {% if post.published_date %}  
 
 	<div class="container ">
-			<p>Published : {{post.author}}</p>
 			
+			<!-- 
 			
 		{% if user.is_authenticated %}			
 			<button class="btn btn-light"><i class="fas fa-dove fa-xs fa-spin"></i></button>
 			<a style="text-decoration: none;font-size: 2em" href="{% url 'post_edit' post.id %}"><i class="fas fa-pencil-alt fa-spin"></i></a>
 		{% endif %}
 
-	
 
-			<p>Published : {{post.published_date}}</p>
-			<h2><a href="">{{post.title}}</a></h2>
+-->
 			<p>{{post.text}}</p>
 
 			
-			 <a type="button" href="{% url 'comment_to_post' post.id %}" class="btn btn-secondary">Leave a comment</a>
+			 <a type="button" href="{% url 'comment_to_post' post.id %}" class="btn btn-secondary">Commenter</a>
 			
-			<h1>Commentaires</h1>
+
+<section class="content-item" id="comments">
+    <div class="container">         
+    	<div class="row">
+            <div class="col-sm-8">   
+                <form>
+                	<h3 class="pull-left">Nouveau commentaire</h3>
+                    <fieldset>
+                        <div class="row">
+                            <div class="col-sm-3 col-lg-2 hidden-xs">
+                            	<img height="50" class="img-responsive" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                            </div>
+                            <div class="form-group col-xs-12 col-sm-9 col-lg-10">
+                                <textarea class="form-control" id="message" placeholder="Votre message" required=""></textarea>
+                            </div>
+                        </div>  	
+                    </fieldset>
+                	<button type="submit" class="btn btn-warning float-right">Soumettre</button>
+
+                </form>
+                
+                <h3>{{post.comments.all.count }} Commentaires </h3>
+                
 
 			{% for i in post.comments.all %}
 
-
-			{% if user.is_superuser and not i.approved %}
-				<a type="button" class="btn btn-light" href="{% url 'approve_comment' i.id  %}">Approve comment {{i.id}} </a>
-				<a type="button" class="btn btn-danger" href="{% url 'remove_comment' i.id %}">Remove comment {{i.id}} </a>
-				<p>date :  {{i.created_date }} </p> <strong>Auteur :  {{i.author}}</strong>
-								<p> {{i.text}} </p>
-								
-			{% endif %}
-
-			
-
-				{% if i.approved %}
-								<p>date :  {{i.created_date }} </p> <strong>Auteur :  {{i.author}}</strong>
-								<p> {{i.text}} </p>
-								
-				{% endif %}
+                <!-- COMMENT 1 - START -->
+                <div class="media">
+                    <a class="pull-left" href="#"><img class="media-object" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""></a>
+                    <div class="media-body">
+                        <h4 class="media-heading">{{i.author}}</h4>
+                        <p>{{i.text}}</p>
 
 
+                        <ul style="display: flex;padding: 5px" class="list-unstyled list-inline media-detail pull-left">
+                            <li><i class="fa fa-calendar"></i>{{i.created_date}}</li>
+                            <!-- <li><i class="fa fa-thumbs-up"></i>13</li> -->
+                        </ul>
 
-			{% if user.is_superuser %}
-	<p>		<a type="button" class="btn btn-danger" href="{% url 'remove_comment' i.id %}">Delete {{i.id}} </a> </p>
-	<hr>
-			 {% endif %}
-			
-			
-			{% empty %}
-			<p>No comments yet ....</p>
+                <!-- 
 
-{% endfor %}
+                        <ul style="display: flex;padding: 5px" class="list-unstyled list-inline media-detail pull-right">
+                            <li class=""><a href="">Like</a></li>
+                            <li class=""><a href="">Répondre</a></li>
+                        </ul>
+                 -->
+                    </div>
+                </div>
+                <!-- COMMENT 1 - END -->
 
-
-
-
-
-
-
-
-
+             {% endfor %}
+                
+            
+            </div>
+        </div>
+    </div>
+</section>
 
 
 		
