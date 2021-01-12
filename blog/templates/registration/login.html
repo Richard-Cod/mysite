@@ -3,14 +3,21 @@
 
 {% block title %} Login {% endblock%}
 {% block content%}
-<h1>PARTIE BLOG DE L'APPLICATION </h1>
-<h2>New login </h2>
 
-<form method="POST" action="">
-	{% csrf_token %}
-	{{ form.as_p }}
-	<button type="submit">Save</button>
-</form>
+	  <!-- Page Header -->
+	  {% include '_blog_header.html' %}
+
+	  <div class="text-center">
+
+		  <h2>New login </h2>
+		  
+		  
+		  <form method="POST" action="">
+			  {% csrf_token %}
+			  {{ form.as_p }}
+			  <button type="submit">Save</button>
+		  </form>
+	  </div>
 
 
 

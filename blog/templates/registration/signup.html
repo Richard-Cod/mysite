@@ -5,13 +5,19 @@
 
 {% block content%}
 
-<div class="container">
-<div class="card">
-	<h3 style="text-align: center;font-family: sans-serif;">Become a Clever Programmer Today</h3>
-	<div class="card-body">
-		{% crispy form %}
+ <!-- Page Header -->
+ {% include '_blog_header.html' %}
+
+ <div class="text-center">
+
+	<div class="container">
+	<div class="card">
+		<h3 style="text-align: center;font-family: sans-serif;">Become a Clever Programmer Today</h3>
+		<div class="card-body">
+			{% crispy form %}
+		</div>
 	</div>
-</div>
+	</div>
 </div>
 
 {% endblock%}

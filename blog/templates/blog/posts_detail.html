@@ -205,7 +205,6 @@
                         <h4 class="media-heading">{{i.author}}</h4>
                         <p>{{i.text}}</p>
 
-                        <p>Commentaire approuvé ? {{i.approved}} </p>
 
 
                         <ul style="display: flex;padding: 5px" class="list-unstyled list-inline media-detail pull-left">
@@ -228,6 +227,8 @@
 
 
              {% if user.is_superuser %}
+             <hr>
+
              <p>Vous êtes Admin alors voici les commentaires qui ne sont pas encore approuvé </p>
 
              {% for i in post.get_unapproved_comments %}
